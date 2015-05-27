@@ -28,6 +28,15 @@ public class QuestionDao extends AbstractJdbcDaoSupport {
 				question.getCountOfComment());
 	}
 	
+	public void update(Question question) {
+		String sql = "UPDATE QUESTIONS set writer=?, title=?, contents=? WHERE questionId = ?";
+		getJdbcTemplate().update(sql, 
+				question.getWriter(), 
+				question.getTitle(), 
+				question.getContents(),
+				question.getQuestionId());
+	}
+	
 	public List<Question> findAll() {
 		String sql = "SELECT questionId, writer, title, createdDate, countOfComment FROM QUESTIONS "
 				+ "order by questionId desc";

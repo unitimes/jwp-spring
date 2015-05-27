@@ -7,8 +7,8 @@
 		</layout>
 	</appender>
 	
-	<logger name="core" level="DEBUG" />
-	<logger name="next" level="DEBUG" />
+<!-- 	<logger name="core" level="DEBUG" />
+	<logger name="next" level="DEBUG" /> -->
 	
 	<logger name="org.springframework" level="INFO" />
 	<logger name="org.springframework.web.bind.annotation.support.HandlerMethodInvoker" level="INFO" />

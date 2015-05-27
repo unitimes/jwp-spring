@@ -16,6 +16,8 @@ import next.service.audit.AuditService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService {
@@ -27,16 +29,15 @@ public class UserService {
 	@Resource(name = "auditService")
 	private AuditService auditService;
 
-	private User existedUser;
-
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
 
+	@Transactional
 	public User join(User user) throws ExistedUserException {
 		log.debug("User : {}", user);
 
-		existedUser = userDao.findByUserId(user.getUserId());
+		User existedUser = userDao.findByUserId(user.getUserId());
 		if (existedUser != null) {
 			throw new ExistedUserException(user.getUserId());
 		}
@@ -49,7 +50,7 @@ public class UserService {
 	public User login(String userId, String password) throws PasswordMismatchException {
 		auditService.log(new AuditObject(userId, LOGIN_TRY));
 
-		existedUser = userDao.findByUserId(userId);
+		User existedUser = userDao.findByUserId(userId);
 		if (existedUser == null) {
 			auditService.log(new AuditObject(userId, LOGIN_FAILED));
 			throw new PasswordMismatchException();
@@ -68,8 +69,9 @@ public class UserService {
 		return userDao.findByUserId(userId);
 	}
 
+	@Transactional
 	public void update(String userId, User updateUser) throws PasswordMismatchException {
-		existedUser = userDao.findByUserId(userId);
+		User existedUser = userDao.findByUserId(userId);
 		if (existedUser == null) {
 			throw new NullPointerException(userId + " user doesn't existed.");
 		}

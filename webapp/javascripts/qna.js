@@ -5,9 +5,35 @@
 	function registerEvents() {
 		var elWriteForm = document.querySelector('.answerWrite input[type=submit]');
 		var elComments = document.querySelector('#comments');
+		var elQuestionBtnContainer = document.querySelector('.buttons');
 
 		elWriteForm.addEventListener('click', writeAnswer, false);
 		elComments.addEventListener('click', deleteAnswer, false);
+		elQuestionBtnContainer.addEventListener('click', processClick, false);
+	}
+	
+	function processClick(e) {
+		e.preventDefault();
+		
+		if (e.target.href.includes("delete")) {
+			var url = e.target.href;
+			var request = new XMLHttpRequest();
+			request.open("GET", url, true);
+
+			request.onreadystatechange = function() {
+				if (request.readyState == 4 && request.status == 200) {
+					var result = JSON.parse(request.responseText);
+					if (!result.status) {
+						alert(result.errorMessage);
+						return;
+					}
+					location.href = "/questions";
+				}
+			}
+			request.send();
+			return;
+		}
+		location.href = e.target.href;
 	}
 
 	function deleteAnswer(e) {
@@ -49,6 +75,10 @@
 
 		request.onreadystatechange = function() {
 			if (request.readyState == 4 && request.status == 200) {
+				var result = JSON.parse(request.responseText);
+				if (!result.status) {
+					alert(result.errorMessage);
+				}
 				location.reload(true)
 			}
 		}

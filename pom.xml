@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.nhnnext</groupId>
-	<artifactId>jwp-naver</artifactId>
+	<artifactId>jwp-next-forever</artifactId>
 	<version>1.0</version>
 	<packaging>war</packaging>
 
@@ -15,6 +15,17 @@
 	</properties>
 
 	<dependencies>
+		<!-- DB connection pool -->
+		<dependency>
+			<groupId>com.mchange</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>0.9.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.5.4</version>
+		</dependency>
 		<!-- unit testing -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -27,7 +38,7 @@
 			<artifactId>mockito-core</artifactId>
 			<version>1.9.5</version>
 			<scope>test</scope>
-		</dependency>		
+		</dependency>
 
 		<!-- servlet -->
 		<dependency>
@@ -51,7 +62,7 @@
 			<artifactId>commons-dbcp</artifactId>
 			<version>1.2.2</version>
 		</dependency>
-		
+
 		<!-- spring framework -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -68,12 +79,12 @@
 			<artifactId>spring-test</artifactId>
 			<version>${org.springframework.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<version>5.1.1.Final</version>
-		</dependency>		
+		</dependency>
 
 		<!-- logger -->
 		<dependency>
