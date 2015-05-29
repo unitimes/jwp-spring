@@ -45,7 +45,7 @@ public class QuestionController {
 
 	@RequestMapping("/{id}/form")
 	public String modify(@PathVariable long id, Model model) {
-		logger.info("mod entered");
+		logger.debug("mod entered");
 		model.addAttribute("question", qnaService.findById(id));
 		return "qna/form";
 	}

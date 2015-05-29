@@ -13,15 +13,15 @@ public class PerformanceMornitorAspect {
 			.getLogger(PerformanceMornitorAspect.class);
 
 	@Pointcut("execution(public * next.web..*.*(..))")
-	public void serviceMethods() {
-	};
+	public void serviceMethods() {}
 
 	@Around("serviceMethods()")
-	public void checkPerformance(ProceedingJoinPoint pjp) throws Throwable {
-		logger.info("in...");
+	public Object checkPerformance(ProceedingJoinPoint pjp) throws Throwable {
+		Object ret;
 		long startTime = System.currentTimeMillis();
-		pjp.proceed();
+		ret =  pjp.proceed();
 		logger.info(pjp.getSignature().getName() + ": "
 				+ (System.currentTimeMillis() - startTime) + "ms");
+		return ret;
 	}
 }

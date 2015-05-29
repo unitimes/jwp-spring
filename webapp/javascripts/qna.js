@@ -79,7 +79,6 @@
 				if (!result.status) {
 					alert(result.errorMessage);
 				}
-				location.reload(true)
 			}
 		}
 
